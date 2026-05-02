@@ -1,0 +1,7 @@
+.container{max-width:980px;margin:0 auto;padding:16px;font-family:Arial,sans-serif}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+button{padding:8px 10px;border:1px solid #bbb;border-radius:8px;background:#fff}
+section{background:#f8fafc;padding:12px;border-radius:10px}
+article{padding:8px;border-bottom:1px solid #ddd}
+input{padding:8px;width:100%;max-width:360px;margin-bottom:8px}
+@media (max-width:640px){.container{padding:10px}button{font-size:12px;padding:6px 8px}}
