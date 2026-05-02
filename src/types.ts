@@ -6,9 +6,10 @@ export type ItemType =
   | 'grammar'
   | 'sentence-pattern'
   | 'email'
-  | 'mistake';
+  | 'mistake'
+  | 'expression';
 
-export type Difficulty = 'easy' | 'medium' | 'hard';
+export type Difficulty = 'easy' | 'medium' | 'hard' | 'normal';
 export type ReviewRating = 'Easy' | 'Hard' | 'Again';
 
 export interface Usage {
@@ -37,6 +38,8 @@ export interface LearningItem {
   correctSentence?: string;
   tags: string[];
   sourceFileName?: string;
+  sourceSheetName?: string;
+  originalId?: string;
   createdAt: string;
   updatedAt: string;
   lastReviewedAt?: string;

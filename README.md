@@ -18,14 +18,14 @@ npm run preview
 
 ## MVP機能
 
-- 学習アイテム管理（vocabulary / idiom / phrase / syntax / grammar / sentence-pattern / email / mistake）
+- 学習アイテム管理（vocabulary / idiom / phrase / syntax / grammar / sentence-pattern / email / mistake / expression）
 - 複数用法（meaning, explanation, example sentence, 日本語訳, difficulty, tags）
 - Review（Easy / Hard / Again）で次回復習日更新
 - Dashboard（今日復習件数・期限切れ・総数・ミス多い項目）
 - Example Practice（例文を使った練習）
 - Mistakes一覧
 - localStorage保存
-- CSVインポート（既存データに追加・source file name保存）
+- CSV / Excel（.xlsx）インポート
 
 ## CSVインポート形式（MVP）
 
@@ -40,17 +40,44 @@ phrase,on the spot,その場で,即時対応を示す表現,toeic
 - `tags` は `|` 区切り。
 - インポート時に `sourceFileName` にアップロードファイル名を保存。
 
-## Excel対応
+## Excel（.xlsx）インポート仕様
 
-- MVPはCSVのみ。
-- 将来的に `.xlsx` の直接取込を追加予定（Sheet選択・列マッピング対応）。
+- 使用ライブラリ: `xlsx`（SheetJS）
+- シート選択:
+  - `累積リスト` シートがあれば優先
+  - なければ最初の非空シートを使用
+- 列マッピング:
+  - `項目` → `expression`
+  - `意味・瞬殺ルール` → `japaneseMeaning`
+  - `メモ/例` → `explanation`
+  - `領域` → `tags`
+  - `ID` → `originalId`
+- 追加メタデータ:
+  - `sourceFileName`（ファイル名）
+  - `sourceSheetName`（シート名）
+- 区分マッピング（`区分`列）:
+  - `V` → `vocabulary`
+  - `V/S` → `phrase`
+  - `S/G` → `grammar`
+  - その他 → `expression`
+- 優先度マッピング（`優先度`列）:
+  - `★` → `hard`
+  - その他 → `normal`
+- 重複判定:
+  - `項目` + `意味・瞬殺ルール` が同じ行は重複としてスキップ
+- Import画面で表示される結果:
+  - 読み込んだファイル名
+  - シート名
+  - 候補件数
+  - 追加件数
+  - 重複スキップ件数
+  - エラー件数
 
 ## 基本的な使い方
 
 1. Dashboard で今日の復習対象を確認
 2. Add で新規登録（MVPは最小UI）
-3. Import でCSVを一括追加
+3. Import でCSV/XLSXを一括追加
 4. Review で出題し Easy/Hard/Again を選択
 5. Example で例文ベース練習、間違えたら「間違えた」記録
 6. Mistakes で弱点のみ集中復習
-
